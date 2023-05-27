@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import './SortingVisualizer.css';
+import { InsertionSortAlgorithm } from '../SortingAlgorithms/InsertionSort/InsertionSort';
 
 function SortingVisualizer() {
 
@@ -10,6 +11,13 @@ function SortingVisualizer() {
   useEffect(()=>{
     if(sort===false)randomNumberArrayGenerator(setNumberArray);
   },[sort]);
+
+  const handleInsertionSort = ()=>{
+    const insertionSortedArray = InsertionSortAlgorithm(numberArray);
+    setNumberArray(insertionSortedArray);
+    setSort(true)
+
+  }
 
   const handleSort = ()=>{
     numberArray.sort((a,b)=>a-b)
@@ -29,7 +37,9 @@ function SortingVisualizer() {
         return <div className="array-bar" key={index} style={{height:`${number}px`}}>
         </div>
       })}
+      <br></br>
       <button onClick={handleSort}>Sort</button>
+      <button onClick={handleInsertionSort}>InsertionSort</button>
       <button onClick={handleReset}>Reset</button>
     </div>
 
@@ -48,7 +58,7 @@ const randomNumberGenerator=(min,max)=>{
 
 const randomNumberArrayGenerator=(setNumberArray)=>{
   const newNumberArray = []
-  for(let i=0;i<300;i++){
+  for(let i=0;i<320;i++){
     newNumberArray.push(randomNumberGenerator(5,730));
   }
   setNumberArray(newNumberArray);
