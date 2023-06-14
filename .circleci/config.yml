@@ -38,6 +38,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
           name: Run test cases
           command: npm test
 
@@ -47,6 +50,9 @@ jobs:
       - image: cimg/node:16.13.2
     steps:
       - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
       - run:
           name: Deploy to Netlify
           command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
