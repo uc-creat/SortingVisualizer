@@ -39,7 +39,7 @@ jobs:
       - checkout
       - run:
           name: Run test cases
-          command: npm run test
+          command: npm test
 
   deploy:
     working_directory: ~/repo
