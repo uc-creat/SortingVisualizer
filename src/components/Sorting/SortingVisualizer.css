@@ -9,3 +9,8 @@
   display: inline-block;
   margin: 0 1px;
 }
+
+.timer{
+  margin-left: 100px;
+  font-size: large;
+}

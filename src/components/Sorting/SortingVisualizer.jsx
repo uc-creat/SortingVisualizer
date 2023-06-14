@@ -7,6 +7,7 @@ function SortingVisualizer() {
 
   const [numberArray, setNumberArray] = useState([]);
   const [sort, setSort] = useState(false);
+  const [timeValue, setTimeValue] = useState(0)
   
   
   useEffect(()=>{
@@ -62,26 +63,31 @@ function SortingVisualizer() {
       const barTwoStyle = arrayBars[barTwoIdx].style;
 
 
-      setTimeout(()=>{
+      // setTimeout(()=>{
 
-        barOneStyle.backgroundColor = "pink";
-        barTwoStyle.backgroundColor = "pink";
+      // barOneStyle.backgroundColor = "pink";
+      // barTwoStyle.backgroundColor = "pink";
 
-        if(indexes[index][4]===false){
-          setTimeout(()=>{
-            barTwoStyle.backgroundColor = "red";
-            barOneStyle.backgroundColor = "blue";
-          },index*50);
-        }
-        else{
-          setTimeout(() => {
-            barTwoStyle.backgroundColor = "red";
-            barOneStyle.backgroundColor = "blue";
-            barOneStyle.height = `${indexes[index][2]}px`;
-            barTwoStyle.height = `${indexes[index][3]}px`;
-          }, index*50);
-        }
-      },index*(0.25));
+      if(indexes[index][4]===false){
+        setTimeout(()=>{
+          barTwoStyle.backgroundColor = "red";
+          barOneStyle.backgroundColor = "blue";
+        },index*100);
+
+      }
+      else{
+        setTimeout(() => {
+          barTwoStyle.backgroundColor = "red";
+          barOneStyle.backgroundColor = "blue";
+          barOneStyle.height = `${indexes[index][2]}px`;
+          barTwoStyle.height = `${indexes[index][3]}px`;
+        }, index*100);
+        // barOneStyle.backgroundColor = "pink";
+        // barTwoStyle.backgroundColor = "pink";
+      }
+
+        
+      // },10000);
 
       
 
@@ -109,6 +115,9 @@ function SortingVisualizer() {
   }
 
   return (
+    <>
+    <div className="timer">Timer:{timeValue}</div>
+    <br></br>
     <div className='array-container'>
       { numberArray.map((number, index)=>{
         return <div className="array-bar" key={index} style={{height:`${number}px`}}>
@@ -122,6 +131,8 @@ function SortingVisualizer() {
       <button onClick={handleBubbleSort}>BubbleSort</button>
       <button onClick={handleReset}>Reset</button>
     </div>
+    </>
+    
 
       
     
