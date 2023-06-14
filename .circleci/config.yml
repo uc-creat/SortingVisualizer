@@ -21,16 +21,37 @@ jobs:
       - run:
           name: Build React App
           command: npm run build
-      - run:
-          name: Build React App
-          command: npm run test
+      # - run:
+      #     name: Build React App
+      #     command: npm run test
       - save_cache:
           key: app-build-cache-{{ .Branch }}
           paths:
             - ./build
-      - run:
-          name: Deploy to Netlify
-          command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
+      # - run:
+      #     name: Deploy to Netlify
+      #     command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
+  test:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/node:16.13.2
+    steps:
+      - checkout
+      run:
+        name: Run test cases
+        command: npm run test
+
+  deploy:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/node:16.13.2
+    steps:
+      - checkout
+      run:
+        name: Deploy to Netlify
+        command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
+
+
 
 workflows:
   version: 2
@@ -41,3 +62,9 @@ workflows:
             branches:
               only:
                 - main
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
